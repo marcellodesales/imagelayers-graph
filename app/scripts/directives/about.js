@@ -20,67 +20,30 @@
         $templateRequest('views/about-menu.html');
       },
       link: function postLink(scope, element) {
-        var position = element.position(),
-            height = element.outerHeight(),
-            speed = 400;
-
-        scope.bindEvents = function(menu) {
-          menu.bind('mouseover', function() {
-              scope.menuActive = true;
-          });
-          menu.bind('mouseleave', function() {
-            scope.menuActive = false;
-            scope.hideMenu(menu);
-          });
-        };
-
-        scope.unbindEvents = function(menu) {
-          menu.unbind('mouseover');
-          menu.unbind('mouseleave');
-        };
-
-        scope.showMenu = function(aboutMenu) {
-          if (!scope.menuVisible) {
-            scope.bindEvents(aboutMenu);
-
-            aboutMenu.css('display', 'block');
-            aboutMenu.animate({
-              'top': (position.top + (height - $('main').scrollTop())) + 'px',
-              'opacity': 1
-            }, speed, function() {
-              scope.menuVisible = true;
-            });
-          }
-        };
-
-        scope.hideMenu = function(aboutMenu) {
-          if (scope.menuVisible && !scope.menuActive) {
-            scope.unbindEvents(aboutMenu);
-
-            aboutMenu.animate({
-              'top': (position.top + 90) + 'px',
-              'opacity': 0
-            }, speed, function() { 
-              aboutMenu.css('display','none'); 
-              scope.menuVisible = false;
-            });
-          }
-        };
+        var main = element.closest('main'),
+            headerHeight = $('header').height();
 
         scope.menuVisible = false;
-        scope.menuActive = false;
 
-        element.bind('mouseover', function() {
+        element.bind('click', function() {
           var aboutMenu = $('ul.about');
-          scope.showMenu(aboutMenu);
+          aboutMenu.slideToggle();
+          scope.menuVisible = !scope.menuVisible;
         });
 
-        element.bind('mouseleave', function() {
-          var aboutMenu = $('ul.about');
-          $timeout(function() {
-            scope.hideMenu(aboutMenu);
-          }, 120);
-        });
+        scope.toggleMenu = function(aboutMenu) {
+          aboutMenu.slideToggle();
+          scope.menuVisible = !scope.menuVisible;
+        };
+
+          main.bind('scroll', function () {
+          if (scope.menuVisible) {
+            if (headerHeight < $('main').scrollTop()) {
+              var aboutMenu = $('ul.about');
+              scope.toggleMenu(aboutMenu);
+            }
+          }
+        })
       } 
     };
   }

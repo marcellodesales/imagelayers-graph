@@ -21,67 +21,19 @@ describe('Directive: about', function () {
     menu = $('ul.about');
   }));
   
-  describe('scope.showMenu', function() {    
-    describe('when menu is not visible', function() {
-      beforeEach(function() {
-        scope.menuVisible = false; 
-      });
-      
-      it('should bind events to menu', function() {
-        spyOn(scope, 'bindEvents');
-        scope.showMenu(menu);
-        
-        expect(scope.bindEvents).toHaveBeenCalled();
-      });
-      
-      it('should call animate', function() {
-        spyOn(menu, 'animate');
-        scope.showMenu(menu);
-        
-        expect(menu.animate).toHaveBeenCalled();
-      });
-    });
-  });
-  
-  describe('scope.hideMenu', function() {
+  describe('scope.toggleMenu', function() {
     describe('when menu is visible and not active', function() {
       beforeEach(function() {
         scope.menuVisible = true;
-        scope.menuActive = false;
       });
       
-      it('should unbind events', function() {
-        spyOn(scope, 'unbindEvents');
-        scope.hideMenu(menu);
-      
-        expect(scope.unbindEvents).toHaveBeenCalled();
-      });
-      
-      it('should call animate', function() {
-        spyOn(menu, 'animate');
-        scope.hideMenu(menu);
+      it('should call slideToggle', function() {
+        spyOn(menu, 'slideToggle');
+        scope.toggleMenu(menu);
         
-        expect(menu.animate).toHaveBeenCalled();
+        expect(menu.slideToggle).toHaveBeenCalled();
       });
     });
   });
-  
-  describe('when mouseover', function() {
-    it('should call showMenu', function() {
-      spyOn(scope, 'showMenu');
-      elem.trigger('mouseover');
-      
-      expect(scope.showMenu).toHaveBeenCalled();
-    });
-  });
-  
-  describe('when mouseleave', function() {
-    it('should call hideMenu', inject(function($timeout) {
-      spyOn(scope, 'hideMenu');
-      elem.trigger('mouseleave');
-      
-      $timeout.flush();
-      expect(scope.hideMenu).toHaveBeenCalled();
-    }));
-  });
+
 });

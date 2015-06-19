@@ -6,7 +6,7 @@ ul.about {
   font-size: 0.8em;
   font-weight: normal;
   position: absolute;
-  top: 100px;
+  top: 58px;
   left: 190px;
   opacity: 1;
   width: 722px;
@@ -189,40 +189,42 @@ header {
   }
 
   nav.ctl {
-    width: 100%;
-    display: block;
-    padding-left: 190px;
+    display: inline-block;
     margin-bottom: 0;
-    padding-top: 21px;
+    height: 58px;
 
-    ul > li {
-      font-size: 0.8em;
-      font-weight: normal;
-      float: left;
-      position: relative;
-      padding-right: 20px;
-      padding-bottom: 25px;
+    ul {
+      overflow: hidden;
 
-      h4 {
+      > li {
+        font-size: 0.8em;
+        font-weight: normal;
+        float: left;
+        height: 100%;
+        position: relative;
+        padding-right: 20px;
+
         a {
-          color: #666;
-        }
-      }
-
-      a {
-        color: #888;
-        text-decoration: none;
-
-        &:after {
-          content: '';
+          padding-top: 22px;
+          color: #888;
+          text-decoration: none;
           display: block;
-          position: absolute;
-          top: 3px;
-          right: 0;
-          width: 16px;
-          height: 16px;
-          @extend .icon-thin-arrow-down;
-          @include icon-light-grey;
+          height: 100%;
+
+          &:hover {
+            color: #2d2d2d;
+          }
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 24px;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            @extend .icon-thin-arrow-down;
+          }
         }
       }
     }
